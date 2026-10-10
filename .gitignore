@@ -7,7 +7,7 @@ dist/
 build/
 
 # C compiled binaries & generated parser files
-parser/kotlin_parser
+# parser/kotlin_parser  <-- intentionally tracked: pre-compiled Linux binary for Render
 parser/kotlin_parser.exe
 parser/parser.tab.c
 parser/parser.tab.h
