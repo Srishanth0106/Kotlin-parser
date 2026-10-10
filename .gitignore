@@ -1,0 +1,22 @@
+# Node dependencies
+node_modules/
+package-lock.json
+
+# Build outputs
+dist/
+build/
+
+# C compiled binaries & generated parser files
+parser/kotlin_parser
+parser/kotlin_parser.exe
+parser/parser.tab.c
+parser/parser.tab.h
+parser/lex.yy.c
+parser/*.o
+*.exe
+*.o
+
+# Environment and logs
+.env
+*.log
+.DS_Store

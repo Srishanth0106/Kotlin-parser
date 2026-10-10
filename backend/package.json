@@ -1,0 +1,14 @@
+{
+  "name": "kotlin-parser-studio-backend",
+  "version": "1.0.0",
+  "description": "Node.js Express Backend for Kotlin Parser Studio",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  }
+}
