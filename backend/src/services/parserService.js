@@ -20,15 +20,21 @@ async function parseKotlinCode(code) {
     const tempFilePath = path.join(tempDir, tempFileName);
 
     const parserDir = path.resolve(__dirname, '../../../parser');
-    const exePath = path.join(parserDir, 'kotlin_parser.exe');
+    const linuxBinPath = path.join(parserDir, 'kotlin_parser');       /* Linux/Render */
+    const winBinPath   = path.join(parserDir, 'kotlin_parser.exe');   /* Windows native */
 
-    /* Check if native Windows binary exists */
-    let useNative = false;
+    /* Detect which binary is available: Linux > Windows > WSL */
+    let mode = 'wsl'; /* default fallback */
     try {
-        await fs.access(exePath);
-        useNative = true;
+        await fs.access(linuxBinPath);
+        mode = 'linux';
     } catch (_) {
-        useNative = false;
+        try {
+            await fs.access(winBinPath);
+            mode = 'windows';
+        } catch (_) {
+            mode = 'wsl';
+        }
     }
 
     try {
@@ -37,9 +43,14 @@ async function parseKotlinCode(code) {
         return await new Promise((resolve, reject) => {
             let child;
 
-            if (useNative) {
-                child = spawn(exePath, ['--json', tempFilePath], { cwd: parserDir });
+            if (mode === 'linux') {
+                /* Native Linux binary — works on Render */
+                child = spawn(linuxBinPath, ['--json', tempFilePath], { cwd: parserDir });
+            } else if (mode === 'windows') {
+                /* Native Windows .exe */
+                child = spawn(winBinPath, ['--json', tempFilePath], { cwd: parserDir });
             } else {
+                /* WSL fallback — Windows without a compiled binary */
                 const wslTempPath = tempFilePath
                     .replace(/^([A-Za-z]):/, (_, drive) => `/mnt/${drive.toLowerCase()}`)
                     .replace(/\\/g, '/');
