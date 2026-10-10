@@ -2,6 +2,11 @@
 
 > **Compiler Design Lab Project:** Building a Parser for a Defined Subset of Kotlin using Flex (Lex) and GNU Bison (Yacc) with a C Abstract Syntax Tree (AST) Generator, Express.js Backend, and React Workbench UI.
 
+## 🌐 Live Demo
+**[https://kotlin-parser-frontend.onrender.com](https://kotlin-parser-frontend.onrender.com)**
+
+> ⚠️ First load may take ~30 seconds if the backend is waking from sleep (free tier).
+
 ---
 
 ## 1. Official Grammar References
